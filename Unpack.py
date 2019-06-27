@@ -8,12 +8,12 @@ parser.add_argument("dir")
 parser.add_argument("wad")
 args = parser.parse_args()
 
+print "Unpacking WAD..."
+
 f0 = open(args.dir,"rb")
 f1 = open(args.wad,"rb")
 
 amount = struct.unpack('i', f0.read(4))[0]
-
-print "Unpacking WAD..."
 
 for i in range(0,amount):
     name = f0.read(0x40)
