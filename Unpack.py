@@ -23,7 +23,8 @@ for i in range(0,amount):
     address = struct.unpack('i', f0.read(4))[0]
     f1.seek(address, os.SEEK_SET)
     filebytes = f1.read(size)
-    f2 = open(newname, "wb")
+    fpath = os.path.join("out", newname)
+    f2 = open(fpath, "wb")
     f2.write(filebytes)
     f2.close()
 
