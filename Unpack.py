@@ -29,6 +29,7 @@ for i in range(0,amount):
     f2.write(filebytes)
     f2.close()
 
+print "Done!"
 
 f0.close()
 f1.close()

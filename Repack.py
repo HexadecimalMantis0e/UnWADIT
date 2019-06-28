@@ -30,6 +30,8 @@ for filename in os.listdir(args.directory):
     # pad everything that isn't a strat
     if header != "BIGB":
         needPadCheck = True
+    else:
+        print filename
 
     f2.seek(0x00, os.SEEK_END)
     size = f2.tell()
@@ -39,7 +41,7 @@ for filename in os.listdir(args.directory):
     f1.write(struct.pack("i", address))
 
     if needPadCheck == True:
-        print "padding " + filename
+        print "Padding " + filename
         paddingSize = 0x800 - (size % 0x800)
         address += paddingSize
 
@@ -50,6 +52,8 @@ for filename in os.listdir(args.directory):
         f0.write(bytearray([0])*paddingSize)
         needPadCheck = False
     f2.close()
+    
+print "Done!"
 
 f0.close()
 f1.close()
