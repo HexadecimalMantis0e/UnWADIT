@@ -12,10 +12,10 @@ needPadCheck = False
 
 print "Packing WAD..."
 
-list = os.listdir(args.directory)
+filelist = os.listdir(args.directory)
 f0 = open(args.directory+".WAD","wb")
 f1 = open(args.directory+".DIR","wb")
-number_files = len(list)
+number_files = len(filelist)
 f1.write(struct.pack("i", number_files))
 
 for filename in os.listdir(args.directory):
