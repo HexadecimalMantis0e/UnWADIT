@@ -12,7 +12,7 @@ print "Unpacking WAD..."
 
 f0 = open(args.dir,"rb")
 f1 = open(args.wad,"rb")
-os.mkdir("out")
+os.mkdir(str(args.wad[:-3]))
 
 amount = struct.unpack('i', f0.read(4))[0]
 
@@ -24,7 +24,7 @@ for i in range(0,amount):
     address = struct.unpack('i', f0.read(4))[0]
     f1.seek(address, os.SEEK_SET)
     filebytes = f1.read(size)
-    fpath = os.path.join("out", newname)
+    fpath = os.path.join(args.wad[:-3], newname)
     f2 = open(fpath, "wb")
     f2.write(filebytes)
     f2.close()
