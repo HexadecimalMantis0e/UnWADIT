@@ -12,7 +12,7 @@ print "Unpacking WAD..."
 
 f0 = open(args.dir,"rb")
 f1 = open(args.wad,"rb")
-os.mkdir(str(args.wad[:-3]))
+os.mkdir(args.wad[:-3])
 
 amount = struct.unpack('i', f0.read(4))[0]
 
