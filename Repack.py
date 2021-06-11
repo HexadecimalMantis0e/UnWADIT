@@ -12,15 +12,15 @@ needPadCheck = False
 
 print("Packing WAD...")
 fileList = os.listdir(args.directory)
-f0 = open(args.directory+".WAD", "wb")
-f1 = open(args.directory+".DIR", "wb")
+f0 = open(args.directory + ".DIR", "wb")
+f1 = open(args.directory + ".WAD", "wb")
 numOfFiles = len(fileList)
-f1.write(struct.pack('I', numOfFiles))
+f0.write(struct.pack('I', numOfFiles))
 
 for fileName in fileList:
-    f1.write(fileName.encode())
+    f0.write(fileName.encode())
     padLength = 0x40 - len(fileName)
-    f1.write(bytearray([0x00]) * padLength)
+    f0.write(bytearray([0x00]) * padLength)
     filePath = os.path.join(args.directory, fileName)
     f2 = open(filePath, "rb")
     header = struct.unpack('I', f2.read(4))[0]
@@ -35,8 +35,8 @@ for fileName in fileList:
     size = f2.tell()
     f2.seek(0x00, os.SEEK_SET)
 
-    f1.write(struct.pack('I', size))
-    f1.write(struct.pack('I', address))
+    f0.write(struct.pack('I', size))
+    f0.write(struct.pack('I', address))
 
     if needPadCheck == True:
         print("Padding " + fileName)
@@ -44,10 +44,11 @@ for fileName in fileList:
         address += paddingSize
 
     fileBytes = f2.read(size)
-    f0.write(fileBytes)
+    f1.write(fileBytes)
     address += size
+
     if needPadCheck == True:
-        f0.write(bytearray([0x00]) * paddingSize)
+        f1.write(bytearray([0x00]) * paddingSize)
         needPadCheck = False
     f2.close()
 print("Done!")
