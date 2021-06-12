@@ -23,10 +23,10 @@ for fileName in fileList:
     f0.write(bytearray([0x00]) * padLength)
     filePath = os.path.join(args.directory, fileName)
     f2 = open(filePath, "rb")
-    header = struct.unpack('I', f2.read(4))[0]
+    header = f2.read(4).decode()
 
     # pad everything that isn't a strat WAD
-    if header != 0x42474942:
+    if header != "BIGB":
         needPadCheck = True
     else:
         print(fileName)
