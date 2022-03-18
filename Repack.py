@@ -25,8 +25,7 @@ def main():
         f2 = open(filePath, "rb")
         header = f2.read(4)
 
-        # pad everything that isn't a strat WAD
-        if header != "BIGB".encode():
+        if header != "BIGB".encode() and header != 0x00.to_bytes(4, byteorder = "little"):
             needPadCheck = True
         else:
             print(fileName)
